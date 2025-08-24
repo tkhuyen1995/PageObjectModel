@@ -8,13 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.AddEmployeePage;
 import pages.DashboardPage;
 import pages.LoginPage;
+import utils.DriverFactory;
 
 public class AddEmployee {
     public static void main(String[] args) {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-
+//        WebDriverManager.chromedriver().setup();
+//        WebDriver driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+        WebDriver driver = DriverFactory.getDriver("chrome");
         try{
             driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
             Thread.sleep(5000);

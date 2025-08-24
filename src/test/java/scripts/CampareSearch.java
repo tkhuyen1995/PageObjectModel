@@ -3,11 +3,11 @@ package scripts;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.AdminPage;
 import pages.DashboardPage;
 import pages.LoginPage;
-import pages.MyInfoPage;
 
-public class CompareInfo {
+public class CampareSearch {
     public static void main(String[] args) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
@@ -22,23 +22,22 @@ public class CompareInfo {
             Thread.sleep(5000);
 
             DashboardPage dashboardPage = new DashboardPage(driver);
-            dashboardPage.goToMyInfoPage();
+            dashboardPage.goToAdminPage();
             Thread.sleep(5000);
 
-            MyInfoPage myInfoPage = new MyInfoPage(driver);
-            String fullNameForm = myInfoPage.fullNameForm();
-            String fullNameDisplay = myInfoPage.getDisplayFullName();
+            AdminPage adminPage = new AdminPage(driver);
+            adminPage.searchUsername("admin");
+            Thread.sleep(5000);
 
-            if(fullNameForm.equalsIgnoreCase(fullNameDisplay)){
-                System.out.println("Matched");
+            Boolean isUserFound = adminPage.isUserFound("admin");
+            if (isUserFound){
+                System.out.println("Found");
             }else {
-                System.out.println("Not Matched");
+                System.out.println("Not Found");
             }
-            Thread.sleep(5000);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        }finally {
             driver.quit();
         }
     }

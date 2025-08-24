@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -12,13 +13,20 @@ public class MyInfoPage {
     }
 
     public String fullNameForm(){
-        WebElement firstName = driver.findElement(By.name("fisrtName"));
-        WebElement lastName = driver.findElement(By.name("lastName"));
-        return firstName.getAttribute("value").trim() + " " + lastName.getAttribute("value").trim();
+        String firstName = driver.findElement(By.name("firstName")).getAttribute("value").trim();
+        String lastName = driver.findElement(By.name("lastName")).getAttribute("value").trim();
+        return firstName + " " + lastName;
     }
 
-    public Boolean verifyFullName(String expectedFullName){
-        String actualFullName = driver.findElement(By.cssSelector(".oxd-userdropdown-name")).getAttribute("value").trim();
-        return expectedFullName.equals(actualFullName);
+    public String getDisplayFullName(){
+        return driver.findElement(By.cssSelector(".oxd-userdropdown-name")).getText().trim();
+    }
+
+    public void setFirstName(String firstname){
+        WebElement firstnameInput = driver.findElement(By.name("firstName"));
+//        firstnameInput.clear(); truong hop ly tuong
+        firstnameInput.sendKeys(Keys.chord(Keys.CONTROL,"a"));
+        firstnameInput.sendKeys(Keys.chord(Keys.DELETE));
+        firstnameInput.sendKeys(firstname);
     }
 }
