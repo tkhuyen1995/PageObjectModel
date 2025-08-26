@@ -7,7 +7,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
-    public static WebDriver getDriver (String browserName){
+    public static WebDriver getDriver (){
+        //mac dinh chromedriver
+        String browserName = System.getProperty("broswer","chrome");
         WebDriver driver;
 
         switch (browserName.toLowerCase()){
