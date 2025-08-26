@@ -9,6 +9,7 @@ import pages.AddEmployeePage;
 import pages.DashboardPage;
 import pages.LoginPage;
 import utils.DriverFactory;
+import utils.ScreenShotUtil;
 
 public class AddEmployee {
     public static void main(String[] args) {
@@ -50,6 +51,7 @@ public class AddEmployee {
             }
         } catch (Exception e) {
             System.out.println("Lỗi: " + e.getMessage());
+            ScreenShotUtil.captureSreenshot(driver,"AddEmployee");
         }finally {
             driver.quit();
         }
