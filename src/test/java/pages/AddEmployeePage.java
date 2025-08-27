@@ -2,6 +2,10 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AddEmployeePage {
     private WebDriver driver;
@@ -15,6 +19,8 @@ public class AddEmployeePage {
     }
 
     public String addNewEmployee(String firstName,String lastName){
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.name("firstName")));
         driver.findElement(By.name("firstName")).sendKeys(firstName);
         driver.findElement(By.name("lastName")).sendKeys(lastName);
         String empID = driver.findElement(By.xpath("//label[text()=\"Employee Id\"]/../following-sibling::div/input")).getAttribute("value").trim();

@@ -1,25 +1,18 @@
 package scripts;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import pages.AddEmployeePage;
 import pages.DashboardPage;
 import pages.LoginPage;
-import utils.DriverFactory;
 import utils.ExcelReader;
-import utils.ScreenShotUtil;
 
 import java.io.IOException;
 import java.time.Duration;
 
-public class AddEmployee extends BaseTest {
+public class AddEmployeeTest extends BaseTest {
 //    public static void main(String[] args) {
         // beforeMethod || afterMethod: truoc xu ly va sau xu ly
 //        WebDriverManager.chromedriver().setup();
@@ -68,21 +61,19 @@ public class AddEmployee extends BaseTest {
 //            driver.quit();
 //        }
 //    }
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         @Test
         public void AddEmployee() throws IOException {
-            //cho o input username san sang
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             //lop loginpage
             LoginPage loginPage = new LoginPage(driver);
             loginPage.login("Admin","admin123");
             System.out.println("Login Success");
 
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("//span[text()=\"PIM\"]")));
             DashboardPage dashboardPage = new DashboardPage(driver);
             dashboardPage.goToPIMPage();
             System.out.println("Pim Page Login");
 
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()=\"Add Employee\"]")));
             AddEmployeePage addEmployeePage = new AddEmployeePage(driver);
             addEmployeePage.goToEmployeePage();
             System.out.println("Success");
@@ -90,8 +81,8 @@ public class AddEmployee extends BaseTest {
 //            String firstName = "Testing";
 //            String lastName = "Automation";
             String filePath = "src/test/java/resources/AddEmployeeTesting.xlsx";
-            String firstName = ExcelReader.getCellData(filePath,"sheet1",1,0);
-            String lastName = ExcelReader.getCellData(filePath,"sheet1",1,1);
+            String firstName = ExcelReader.getCellData(filePath,"sheet1",1,0).trim();
+            String lastName = ExcelReader.getCellData(filePath,"sheet1",1,1).trim();
             String empId = addEmployeePage.addNewEmployee(firstName,lastName);
             System.out.println("Them thanh cong");
 
